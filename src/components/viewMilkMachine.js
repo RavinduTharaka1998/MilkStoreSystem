@@ -1,5 +1,7 @@
 import  React, {Component} from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 
 import './css/milk.css';
 import MilkMachineTableRow from './milkMachineTableRow';
@@ -29,6 +31,32 @@ export default  class viewMilkTank extends  Component{
             return <MilkMachineTableRow obj = {object} key = {i}/>;
         });
     }
+
+    exportPDF = () => {
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+    
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+    
+        doc.setFontSize(15);
+    
+        const title = "Milk Machine Report";
+        const headers = [["Machine Number","Machine Type", "Man Power","Store In", "Tank Owner"]];
+    
+        const data = this.state.machines.map(elt=> [elt.mnumber, elt.machinetype, elt.manpower, elt.place,elt.owner]);
+    
+        let content = {
+          startY: 50,
+          head: headers,
+          body: data
+        };
+    
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("MilkMachineReport.pdf")
+      }
    
 
     render() {
@@ -55,7 +83,8 @@ export default  class viewMilkTank extends  Component{
                         <div className="container" style={{marginLeft:300}}>
                         
                             <br/>
-                            <a href = "/viewmilktank" class="btn btn-success">View Machine</a>
+                            {/* <a href = "/viewmilktank" class="btn btn-success">View Machine</a> */}
+                            <button className='btn btn-info' onClick={() => this.exportPDF()}>Export Result</button>
 
                             <table className="table table-striped" style = {{marginTop :20}}>
                             <thead>

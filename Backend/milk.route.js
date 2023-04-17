@@ -53,92 +53,86 @@ milkRoutes.route('/machine').get(function (req, res){
 
 });
 
-// businessRoutes.route('/edit/:id').get(function (req,res){
-//     let id = req.params.id;
-//     Customers.findById(id, function (err,customers){
-//         res.json(customers);
-//     });
-// });
+milkRoutes.route('/editmilktank/:id').get(function (req,res){
+    let id = req.params.id;
+    MilkTanks.findById(id, function (err,tanks){
+        res.json(tanks);
+    });
+});
 
-// businessRoutes.route('/update/:id').post(function (req,res){
-//     let id = req.params.id;
-//     Customers.findById(id, function (err, customers){
-//         if(!customers)
-//             res.status(404).send("Data is not found??");
-//         else{
-//             customers.name = req.body.name;
-//             customers.address = req.body.address;
-//             customers.nic = req.body.nic;
-//             customers.phone = req.body.phone;
-//             customers.customer_type = req.body.customer_type;
-//             customers.email = req.body.email;
-//             customers.password = req.body.password;
+milkRoutes.route('/editmilkmachine/:id').get(function (req,res){
+    let id = req.params.id;
+    MilkMachines.findById(id, function (err,machines){
+        res.json(machines);
+    });
+});
+
+milkRoutes.route('/updatemilktank/:id').post(function (req,res){
+    let id = req.params.id;
+    MilkTanks.findById(id, function (err, tanks){
+        if(!tanks)
+            res.status(404).send("Data is not found??");
+        else{
+            tanks.tnumber = req.body.tnumber;
+            tanks.milktype = req.body.milktype;
+            tanks.capacity = req.body.capacity;
+            tanks.place = req.body.place;
+            tanks.owner = req.body.owner;
+            tanks.date = req.body.date;
+            tanks.time = req.body.time;
 
 
-//             customers.save().then(business => {
-//                 res.json('Update Complete');
-//             })
-//                 .catch(err =>{
-//                     res.status(400).send("Unable to update data");
-//                 });
-//         }
-//     });
-// });
+            tanks.save().then(tanks => {
+                res.json('Update Complete');
+            })
+                .catch(err =>{
+                    res.status(400).send("Unable to update data");
+                });
+        }
+    });
+});
 
-// businessRoutes.route('/delete/:id').get(function(req,res){
-//     Customers.findByIdAndRemove({_id:req.params.id}, function (err, customers){
-//         if(err)res.json(err);
 
-//         else res.json('Successfully Removed');
-//     });
-// });
+milkRoutes.route('/updatemilkmachine/:id').post(function (req,res){
+    let id = req.params.id;
+    MilkMachines.findById(id, function (err, machines){
+        if(!machines)
+            res.status(404).send("Data is not found??");
+        else{
+            machines.mnumber = req.body.mnumber;
+            machines.machinetype = req.body.machinetype;
+            machines.manpower = req.body.manpower;
+            machines.place = req.body.place;
+            machines.owner = req.body.owner;
 
-// businessRoutes.route('/loginbuyer').post(function (req, res){
-//     let email = req.body.email;
-//     let password = req.body.password;
-//     let customer_type = req.body.customer_type;
 
-//     let customers = new Customers(req.body);
+            machines.save().then(tanks => {
+                res.json('Update Complete');
+            })
+                .catch(err =>{
+                    res.status(400).send("Unable to update data");
+                });
+        }
+    });
+});
 
-//     Customers.findOne({$and:[{email : email},{password : password},{customer_type : customer_type}]})
-//         .then(customers => {
-//             if(customers){
-//                 customers.name = req.body.name;
-//                 res.status(200).send({
+milkRoutes.route('/deletemilktank/:id').get(function(req,res){
+    MilkTanks.findByIdAndRemove({_id:req.params.id}, function (err, tanks){
+        if(err)res.json(err);
 
-//                     message: "Successful Login"
-//                 });
-//             }
-//             else{
-//                 res.status(200).send({
-//                     message: "User Not Found"
-//                 });
-//             }
-//         })
-// });
+        else res.json('Successfully Removed');
+    });
+});
 
-// businessRoutes.route('/loginseller').post(function (req, res){
-//     let email = req.body.email;
-//     let password = req.body.password;
-//     let customer_type = req.body.customer_type;
+milkRoutes.route('/deletemilkmachine/:id').get(function(req,res){
+    MilkMachines.findByIdAndRemove({_id:req.params.id}, function (err, machines){
+        if(err)res.json(err);
 
-//     let customers = new Customers(req.body);
+        else res.json('Successfully Removed');
+    });
+});
 
-//     Customers.findOne({$and:[{email : email},{password : password},{customer_type : customer_type}]})
-//         .then(customers => {
-//             if(customers){
-//                 customers.name = req.body.name;
-//                 res.status(200).send({
 
-//                     message: "Successful Login"
-//                 });
-//             }
-//             else{
-//                 res.status(200).send({
-//                     message: "User Not Found"
-//                 });
-//             }
-//         })
-// });
+
 
 module.exports = milkRoutes;
