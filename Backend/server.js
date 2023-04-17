@@ -7,7 +7,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
 
-const businessRoute = require('./milk.route');
+const milkRoute = require('./milk.route.js');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, {useNewUrlParser: true}).then(
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 
-app.use('/milk',businessRoute);
+app.use('/milk',milkRoute);
 
 app.listen(PORT, function(){
     console.log('Server is running on port: ',PORT);
