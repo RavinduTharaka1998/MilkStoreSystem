@@ -54,7 +54,7 @@ export default  class addResource extends  Component{
                                 <div className='col'>
                                     <img src = "https://www.salesforce.com/content/dam/blogs/ca/Blog%20Posts/details-open-graph.jpg" width="250"/>
                                     <br/><br/>
-                                    <a href='/viewmilktank' className='btn btn-warning'>View Milk Machin</a>
+                                    <a href='/viewmilkmachine' className='btn btn-warning'>View Milk Machin</a>
                                 </div>
                             </div>
                         </center>

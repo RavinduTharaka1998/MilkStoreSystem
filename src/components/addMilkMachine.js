@@ -4,46 +4,41 @@ import axios from 'axios'
 import './css/milk.css';
 
 
-export default  class addMilkTank extends  Component{
+export default  class addMilkMachine extends  Component{
 
 
     constructor(props) {
         super(props);
 
-        this.onChangetNumber = this.onChangetNumber.bind(this);
-        this.onChangeMilkType = this.onChangeMilkType.bind(this);
-        this.onChangeCapacity = this.onChangeCapacity.bind(this);
+        this.onChangemNumber = this.onChangemNumber.bind(this);
+        this.onChangeMachineType = this.onChangeMachineType.bind(this);
+        this.onChangeManPower = this.onChangeManPower.bind(this);
         this.onChangePlace = this.onChangePlace.bind(this);
-
         this.onChangeOwner = this.onChangeOwner.bind(this);
-        this.onChangeDate = this.onChangeDate.bind(this);
-        this.onChangeTime = this.onChangeTime.bind(this);
 
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            tnumber: '',
-            milktype:'',
-            capacity: '',
+            mnumber: '',
+            machinetype:'',
+            manpower: '',
             place:'',
-            owner:'',
-            date:'',
-            time:''
+            owner:''
         }
     }
-    onChangetNumber(e){
+    onChangemNumber(e){
         this.setState( {
-           tnumber: e.target.value
+           mnumber: e.target.value
         });
     }
-    onChangeMilkType(e){
+    onChangeMachineType(e){
         this.setState( {
-           milktype: e.target.value
+           machinetype: e.target.value
         });
     }
-    onChangeCapacity(e){
+    onChangeManPower(e){
         this.setState( {
-           capacity: e.target.value
+           manpower: e.target.value
         });
     }
     onChangePlace(e){
@@ -56,44 +51,30 @@ export default  class addMilkTank extends  Component{
             owner: e.target.value
         });
     }
-    onChangeDate(e){
-        this.setState( {
-            date: e.target.value
-        });
-    }
-    onChangeTime(e){
-        this.setState( {
-            time: e.target.value
-        });
-    }
     onSubmit(e){
         e.preventDefault();
         const obj = {
-            tnumber : this.state.tnumber,
-            milktype : this.state.milktype,
-            capacity : this.state.capacity,
+            mnumber : this.state.mnumber,
+            machinetype : this.state.machinetype,
+            manpower : this.state.manpower,
             place : this.state.place,
             owner : this.state.owner,
-            date : this.state.date,
-            time : this.state.time
         };
        
-      
-                            axios.post('http://localhost:4000/milk/addmilktank',obj)
+        
+                            axios.post('http://localhost:4000/milk/addmilkmachine',obj)
                                 .then(res => {
-                                    alert("Tank Addedd Successfully");
+                                    alert("Machine Added Successfully");
                                     this.setState({
-                                        tnumber: '',
-                                        milktype:'',
-                                        capacity: '',
+                                        mnumber: '',
+                                        machinetype:'',
+                                        manpower: '',
                                         place:'',
-                                        owner:'',
-                                        date:'',
-                                        time:''
+                                        owner:''
                                     })
                                     console.log(res.data)});
                             //this.props.history.push('/viewpayment/'+this.props.match.params.id);
-                            window.location.replace('/viewmilktank');
+                            window.location.replace('/viewmilkmachine');
 
     }
 
@@ -116,52 +97,41 @@ export default  class addMilkTank extends  Component{
                     </div>
 
                     <div class="content">
-                        <h3 align="center">Add Milk Tank Form</h3>
+                        <h3 align="center">Add Milk Machine Form</h3>
                         <br/>
                         <div className="container" style={{marginLeft:300}}>
                         <form onSubmit={this.onSubmit}>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                <label for="inputEmail4">Tank Number</label>
-                                <input type="number" class="form-control" min = "1" value={this.state.tnumber} onChange = {this.onChangetNumber}/>
+                                <label for="inputEmail4">Machine Number</label>
+                                <input type="number" class="form-control" min = "1" value={this.state.mnumber} onChange = {this.onChangemNumber}/>
                                 </div>
                                 <div class="form-group col-md-6">
-                                <label for="inputPassword4">Type of Milk</label>
-                                <input type="text" class="form-control" value={this.state.milktype} onChange = {this.onChangeMilkType}/>
+                                <label for="inputPassword4">Type of Machine</label>
+                                <input type="text" class="form-control" value={this.state.machinetype} onChange = {this.onChangeMachineType}/>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                <label for="inputEmail4">Capacity (Liter)</label>
-                                <input type="number" class="form-control" min = "1" value={this.state.capacity} onChange = {this.onChangeCapacity}/>
+                                <label for="inputEmail4">Number of Man Power</label>
+                                <input type="number" class="form-control" min = "4" value={this.state.manpower} onChange = {this.onChangeManPower}/>
                                 </div>
                                 <div class="form-group col-md-6">
                                 <label for="inputPassword4">Store Place</label>
                                 <input type="text" class="form-control" value={this.state.place} onChange = {this.onChangePlace}/>
                                 </div>
                             </div>
-                          
                             <div class="form-group">
-                                <label for="inputAddress">Tank Owner</label>
+                                <label for="inputAddress">Machine Owner</label>
                                 <input type="text" class="form-control" value={this.state.owner} onChange = {this.onChangeOwner}/>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                <label for="inputEmail4">Date</label>
-                                <input type="date" class="form-control" value={this.state.date} onChange = {this.onChangeDate}/>
-                                </div>
-                                <div class="form-group col-md-6">
-                                <label for="inputPassword4">Time</label>
-                                <input type="time" class="form-control" value={this.state.time} onChange = {this.onChangeTime}/>
-                                </div>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary">Add Tank</button>
+                           
+                            <button type="submit" class="btn btn-primary">Add Machine</button>
                             </form>
 
                             <br/>
-                            <a href = "/viewmilktank" class="btn btn-success">View Tanks</a>
+                            <a href = "/viewmilktank" class="btn btn-success">View Machine</a>
                         </div>
                         
                     </div>

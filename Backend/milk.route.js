@@ -3,6 +3,7 @@ const milkRoutes = express.Router();
 
 
 let MilkTanks = require('./milktank.model');
+let MilkMachines = require('./milkmachine.model');
 
 milkRoutes.route('/addmilktank').post(function (req,res){
     let milktanks = new MilkTanks(req.body);
@@ -16,18 +17,41 @@ milkRoutes.route('/addmilktank').post(function (req,res){
         });
 });
 
-// businessRoutes.route('/:id').get(function (req, res){
-//     let email = req.params.id;
-//     console.log(email);
-//     Customers.findOne({$and:[{email : email}]},function (err,cus){
-//         if(err)
-//             console.log(err);
-//         else{
-//             res.json(cus)
-//         }
-//     });
+milkRoutes.route('/addmilkmachine').post(function (req,res){
+    let milkmachines = new MilkMachines(req.body);
+    console.log("milk machine add backend calling...")
+    milkmachines.save()
+        .then(milkmachines => {
+            res.status(200).json({'milkmachine' : 'milkmachines is added successfull'});
+        })
+        .catch(err => {
+            res.status(400).send("Unable to save database")
+        });
+});
 
-// });
+milkRoutes.route('/milktank').get(function (req, res){
+    console.log("get milk tank calling");
+    MilkTanks.find(function (err,tank){
+        if(err)
+            console.log(err);
+        else{
+            res.json(tank)
+        }
+    });
+
+});
+
+milkRoutes.route('/machine').get(function (req, res){
+    console.log("get milk machine calling");
+    MilkMachines.find(function (err,machine){
+        if(err)
+            console.log(err);
+        else{
+            res.json(machine)
+        }
+    });
+
+});
 
 // businessRoutes.route('/edit/:id').get(function (req,res){
 //     let id = req.params.id;
