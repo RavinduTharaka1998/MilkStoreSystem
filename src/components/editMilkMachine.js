@@ -115,7 +115,7 @@ export default  class updateMilkMachine extends  Component{
                     </div>
 
                     <div class="content">
-                        <h3 align="center">Add Milk Machine Form</h3>
+                        <h3 align="center">Edit Milk Machine Form</h3>
                         <br/>
                         <div className="container" style={{marginLeft:300}}>
                         <form onSubmit={this.onSubmit}>
